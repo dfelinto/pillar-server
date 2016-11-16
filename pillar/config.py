@@ -5,7 +5,7 @@ import requests.certs
 
 # Certificate file for communication with other systems.
 TLS_CERT_FILE = requests.certs.where()
-print('Loading TLS certificates from %s' % TLS_CERT_FILE)
+print(('Loading TLS certificates from %s' % TLS_CERT_FILE))
 
 import requests.certs
 
@@ -79,7 +79,7 @@ FILE_LINK_VALIDITY = defaultdict(
 )
 
 # Roles with full GET-access to all variations of files.
-FULL_FILE_ACCESS_ROLES = {u'admin', u'subscriber', u'demo'}
+FULL_FILE_ACCESS_ROLES = {'admin', 'subscriber', 'demo'}
 
 # Client and Subclient IDs for Blender ID
 BLENDER_ID_CLIENT_ID = 'SPECIAL-SNOWFLAKE-57'
@@ -117,7 +117,7 @@ SHORT_CODE_LENGTH = 6  # characters
 # People are allowed this many bytes per uploaded file.
 FILESIZE_LIMIT_BYTES_NONSUBS = 32 * 2 ** 20
 # Unless they have one of those roles.
-ROLES_FOR_UNLIMITED_UPLOADS = {u'subscriber', u'demo', u'admin'}
+ROLES_FOR_UNLIMITED_UPLOADS = {'subscriber', 'demo', 'admin'}
 
 
 #############################################

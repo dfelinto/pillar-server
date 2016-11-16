@@ -441,7 +441,7 @@ def edit(project_url):
         url=project.url,
         summary=project.summary,
         description=project.description,
-        is_private=u'GET' not in project.permissions.world,
+        is_private='GET' not in project.permissions.world,
         category=project.category,
         status=project.status,
     )
@@ -463,7 +463,7 @@ def edit(project_url):
         if form.is_private.data:
             project.permissions.world = []
         else:
-            project.permissions.world = [u'GET']
+            project.permissions.world = ['GET']
 
         project.update(api=api)
         # Reattach the pictures
@@ -713,7 +713,7 @@ def project_update_nodes_list(node, project_id=None, list_name='latest'):
         elif not project_id:
             return None
         project_id = node.project
-        if type(project_id) is not unicode:
+        if type(project_id) is not str:
             project_id = node.project._id
         api = system_util.pillar_api()
         project = Project.find(project_id, api=api)

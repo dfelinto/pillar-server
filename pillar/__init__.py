@@ -225,7 +225,7 @@ class PillarServer(Eve):
         eve_settings = pillar_extension.eve_settings()
 
         if 'DOMAIN' in eve_settings:
-            for key, collection in eve_settings['DOMAIN'].items():
+            for key, collection in list(eve_settings['DOMAIN'].items()):
                 source = '%s.%s' % (pillar_extension.name, key)
                 url = '%s/%s' % (pillar_extension.name, key)
 
@@ -268,7 +268,7 @@ class PillarServer(Eve):
         self.register_static_file_endpoint('/static/pillar', 'static_pillar', pillar_static_folder)
 
         # Setup static folders for extensions
-        for name, ext in self.pillar_extensions.items():
+        for name, ext in list(self.pillar_extensions.items()):
             if not ext.static_path:
                 continue
             self.register_static_file_endpoint('/static/%s' % name,
@@ -296,7 +296,7 @@ class PillarServer(Eve):
             self._init_oplog()
 
         domain_copy = copy.deepcopy(self.config['DOMAIN'])
-        for resource, settings in domain_copy.items():
+        for resource, settings in list(domain_copy.items()):
             self.register_resource(resource, settings)
 
         self.register_error_handlers()
@@ -356,12 +356,12 @@ class PillarServer(Eve):
                 if node_type:
                     node_type = node_type.replace('_', ' ').title()
                     if doc_name:
-                        description = u'%s "%s" was deleted.' % (node_type, doc_name)
+                        description = '%s "%s" was deleted.' % (node_type, doc_name)
                     else:
-                        description = u'This %s was deleted.' % (node_type, )
+                        description = 'This %s was deleted.' % (node_type, )
                 else:
                     if doc_name:
-                        description = u'"%s" was deleted.' % doc_name
+                        description = '"%s" was deleted.' % doc_name
                     else:
                         description = None
 
@@ -437,7 +437,7 @@ class PillarServer(Eve):
         web.setup_app(self)
         authentication.setup_app(self)
 
-        for ext in self.pillar_extensions.itervalues():
+        for ext in self.pillar_extensions.values():
             self.log.info('Setting up extension %s', ext.name)
             ext.setup_app(self)
 
@@ -557,4 +557,4 @@ class PillarServer(Eve):
             return ''
 
         return jinja2.Markup(''.join(ext.sidebar_links(project)
-                                     for ext in self.pillar_extensions.values()))
+                                     for ext in list(self.pillar_extensions.values())))

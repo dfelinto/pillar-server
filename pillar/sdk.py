@@ -1,7 +1,7 @@
 """PillarSDK subclass for direct Flask-internal calls."""
 
 import logging
-import urlparse
+import urllib.parse
 from flask import current_app
 
 import pillarsdk
@@ -23,8 +23,8 @@ class FlaskInternalApi(pillarsdk.Api):
         self.requests_to_flask_kwargs(kwargs)
 
         # Leave out the query string and fragment from the URL.
-        split_url = urlparse.urlsplit(url)
-        path = urlparse.urlunsplit(split_url[:-2] + (None, None))
+        split_url = urllib.parse.urlsplit(url)
+        path = urllib.parse.urlunsplit(split_url[:-2] + (None, None))
         try:
             response = client.open(path=path, query_string=split_url.query, method=method,
                                    **kwargs)
@@ -60,7 +60,7 @@ class FlaskInternalApi(pillarsdk.Api):
             # won't work.
             data = kwargs.get('data') or {}
 
-            for file_name, file_value in kwargs['files'].items():
+            for file_name, file_value in list(kwargs['files'].items()):
                 fname, fobj, mimeytpe = file_value
                 data[file_name] = (fobj, fname)
 

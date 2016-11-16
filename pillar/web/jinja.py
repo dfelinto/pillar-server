@@ -1,6 +1,6 @@
 """Our custom Jinja filters and other template stuff."""
 
-from __future__ import absolute_import
+
 
 import logging
 
